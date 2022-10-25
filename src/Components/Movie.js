@@ -3,6 +3,8 @@ function Movie (props){
     const [movieTitles, setMovieTitles] = useState([]);
     console.log(movieTitles);
 
+    let finalList = props.showAll === false ? (props.showNext === false ? movieTitles.slice(0,24) : movieTitles.slice(0, 49)) : movieTitles;
+
    
 
     async function getMovies() {
@@ -38,49 +40,7 @@ function Movie (props){
 
     return (
         <>
-        {movieTitles.slice(0,24).filter((item) => {
-            if(props.searchInp === ""){
-                return item
-            } else if(item.Title.toLowerCase().includes(props.searchInp.toLowerCase())) {
-                return item
-            }
-        }).map((item, index) => {
-            return  (
-            <div key={index} className="card card-flex card-shadow m-1" style={{width: '15rem'}}>
-                <img src={item.Poster} className="card-img-top" alt="..." style={{height: '18rem'}}/>
-                <div className="card-body card-body-pos bg-dark">
-                    <div className="wrap-movie-info text-light">
-                        <h5 className="card-title">{item.Title}</h5>
-                        <p className="card-text">Directed by: {item.Director}</p>
-                        
-                    </div>
-                    <a href="/" className="btn btn-primary">Sneak peek</a>
-                </div>
-            </div>
-            )
-        })}
-        {props.showNext && movieTitles.slice(24,49).filter((item) => {
-            if(props.searchInp === ""){
-                return item
-            } else if(item.Title.toLowerCase().includes(props.searchInp.toLowerCase())) {
-                return item
-            }
-        }).map((item, index) => {
-            return  (
-            <div key={index} className="card card-flex card-shadow m-1" style={{width: '15rem'}}>
-                <img src={item.Poster} className="card-img-top" alt="..." style={{height: '18rem'}}/>
-                <div className="card-body card-body-pos bg-dark">
-                    <div className="wrap-movie-info text-light">
-                        <h5 className="card-title">{item.Title}</h5>
-                        <p className="card-text">Directed by: {item.Director}</p>
-                        
-                    </div>
-                    <a href="/" className="btn btn-primary">Sneak peek</a>
-                </div>
-            </div>
-            )
-        })}
-        {props.showAll && movieTitles.slice(49).filter((item) => {
+        {finalList.filter((item) => {
             if(props.searchInp === ""){
                 return item
             } else if(item.Title.toLowerCase().includes(props.searchInp.toLowerCase())) {
