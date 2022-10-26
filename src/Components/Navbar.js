@@ -1,10 +1,14 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import Movie from "./Movie";
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
 
 export default function Navbar (props) {
     const [searchInp, setSearchInp] = useState('');
     const [showNext, setShowNext] = useState(false);
     const [showAll, setShowAll] = useState(false);
+    const [show, setShow] = useState(false);
+
 
     function handleShowMore(){
       setShowNext(prevState => {
@@ -27,19 +31,34 @@ export default function Navbar (props) {
         return !prevState
       })
     }
+
+    function handleShow() {
+      setShow(prevState => {
+        return !prevState
+      })
+    }
     
     return (
         <div className="wrap-content">
           <div className='navbar navbar-expand-lg nav-bg d-flex justify-content-between'>
             <input type="text" placeholder='Search for a title...' onChange={event => {setSearchInp(event.target.value)}}/> 
-            <button className="btn-light rounded p-2">Test your luck</button>
+            <Button type="button" onClick={handleShow} className="btn-light rounded p-2">Test your luck</Button>
           </div>
           <div className='movie-container pb-3'>
-            <Movie searchInp={searchInp} showNext={showNext} showAll={showAll} />
+            <Movie handleShowMore={handleShowMore} handleShowAll={handleShowAll} handleShowLess={handleShowLess} searchInp={searchInp} showNext={showNext} showAll={showAll} />
           </div>
-          <div className="w-100 d-flex justify-content-center">
-            {searchInp === '' && <button className="btn btn-outline-light rounded px-3 my-3" onClick={showAll === false ? (showNext === false ? handleShowMore : handleShowAll) : handleShowLess}>{showAll === false ? (showNext === false ? 'View more...' : 'View all') : 'View less'}</button>}
-          </div>
+          <Modal show={show}>
+            <Modal.Header closeButton>
+              <Modal.Title>
+                Modal Header
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              
+            </Modal.Body>
+          </Modal>
+          
+          
         </div>
     )
 }

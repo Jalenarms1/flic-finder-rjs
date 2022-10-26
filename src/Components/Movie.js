@@ -3,13 +3,20 @@ function Movie (props){
     const [movieTitles, setMovieTitles] = useState([]);
     console.log(movieTitles);
 
-    let finalList = props.showAll === false ? (props.showNext === false ? movieTitles.slice(0,24) : movieTitles.slice(0, 49)) : movieTitles;
+    let filteredMovies = movieTitles.filter(item => {
+      if(props.searchInp === ""){
+        return item
+      } else if(item.Title.toLowerCase().includes(props.searchInp.toLowerCase())) {
+        return item
+      } 
+    })
 
-   
+    let finalList = filteredMovies.length > 49 ? (props.showAll === false ? (props.showNext === false ? filteredMovies.slice(0, 49) : filteredMovies.slice(0,100)) : filteredMovies) : filteredMovies;
+
 
     async function getMovies() {
 
-        let url = 'https://api.watchmode.com/v1/list-titles/?apiKey=CD5UU4BDUoZl8jOFkq3QEQ2iWo6d1MYOrGSDqIQ8&types=movie&limit=75'
+        let url = 'https://api.watchmode.com/v1/list-titles/?apiKey=CD5UU4BDUoZl8jOFkq3QEQ2iWo6d1MYOrGSDqIQ8&types=movie'
         let response = await fetch(url, {
           method: 'GET'
         })
@@ -38,15 +45,10 @@ function Movie (props){
         getMovies();
     }, []);
 
+
     return (
         <>
-        {finalList.filter((item) => {
-            if(props.searchInp === ""){
-                return item
-            } else if(item.Title.toLowerCase().includes(props.searchInp.toLowerCase())) {
-                return item
-            }
-        }).map((item, index) => {
+        {finalList.map((item, index) => {
             return  (
             <div key={index} className="card card-flex card-shadow m-1" style={{width: '15rem'}}>
                 <img src={item.Poster} className="card-img-top" alt="..." style={{height: '18rem'}}/>
@@ -61,6 +63,9 @@ function Movie (props){
             </div>
             )
         })}
+        <div className="w-100 d-flex justify-content-center">
+          {finalList.length > 23 && <button className="btn btn-outline-light rounded px-3 my-3" onClick={props.showAll === false ? (props.showNext === false ? props.handleShowMore : props.handleShowAll) : props.handleShowLess}>{props.showAll === false ? (props.showNext === false ? 'View more...' : 'View all') : 'View less'}</button>}
+        </div>
         
         </>
     )
