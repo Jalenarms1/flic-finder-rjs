@@ -1,6 +1,4 @@
 import React, {useState, useEffect} from "react";
-import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
 import MovieDetailModal from "./MovieDetailModal";
 
 
@@ -12,11 +10,20 @@ function Movie (props){
 
 
     let filteredMovies = movieTitles.filter(item => {
-      if(props.searchInp === ""){
-        return item
-      } else if(item.Title.toLowerCase().includes(props.searchInp.toLowerCase())) {
-        return item
-      } 
+      if(props.genre !== 'none'){
+        if(props.searchInp === "" && item.Genre.includes(props.genre)){
+          return item
+        } else if(item.Genre.includes(props.genre) && item.Title.toLowerCase().includes(props.searchInp.toLowerCase())) {
+          return item
+        } 
+      } else{
+        if(props.searchInp === ""){
+          return item
+        } else if(item.Title.toLowerCase().includes(props.searchInp.toLowerCase())){
+          return item
+        }
+      }
+      
     })
 
     let finalList = filteredMovies.length > 49 ? (props.showAll === false ? (props.showNext === false ? filteredMovies.slice(0, 49) : filteredMovies.slice(0,100)) : filteredMovies) : filteredMovies;
@@ -69,11 +76,8 @@ function Movie (props){
                       
                   </div>
               </div>
-            <MovieDetailModal title={item.Title} plot={item.Plot} rated={item.Rated} actors={item.Actors} />
-              
+            <MovieDetailModal key={index} title={item.Title} plot={item.Plot} rated={item.Rated} actors={item.Actors} />
             </div>
-
-            
             </>
             )
         })}

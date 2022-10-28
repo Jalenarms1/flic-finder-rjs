@@ -15,6 +15,8 @@ export default function MovieModal(props) {
         })
         let data = await response.json();
         console.log(data);
+
+      
         let randomTitle = data.titles[Math.floor(Math.random() * data.titles.length)];
   
         let res = await fetch(`https://www.omdbapi.com/?i=${randomTitle.imdb_id}&apikey=4282aace`, {
@@ -27,9 +29,9 @@ export default function MovieModal(props) {
   
     }
     useEffect(() => {
-        if(!props.show){
-            getRandomMovie();
-        }
+      if(!props.show){
+        getRandomMovie();
+      }
     }, [props.show])
 
     return (
