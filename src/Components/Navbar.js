@@ -8,7 +8,7 @@ export default function Navbar (props) {
     const [showNext, setShowNext] = useState(false);
     const [showAll, setShowAll] = useState(false);
     const [show, setShow] = useState(false);
-    const [genre, setGenre] = useState();
+    const [genre, setGenre] = useState('none');
     console.log(genre);
 
 

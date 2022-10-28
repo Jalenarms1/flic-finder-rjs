@@ -27,36 +27,34 @@ function Movie (props){
     })
 
     let finalList = filteredMovies.length > 49 ? (props.showAll === false ? (props.showNext === false ? filteredMovies.slice(0, 49) : filteredMovies.slice(0,100)) : filteredMovies) : filteredMovies;
-
     
-
     async function getMovies() {
 
-        let url = 'https://api.watchmode.com/v1/list-titles/?apiKey=CD5UU4BDUoZl8jOFkq3QEQ2iWo6d1MYOrGSDqIQ8&types=movie'
-        let response = await fetch(url, {
-          method: 'GET'
-        })
-        let data = await response.json();
-        console.log(data);
-  
-        function getMovieDetails (data) {
-          data.forEach(async (item) => {
-            let res = await fetch(`https://www.omdbapi.com/?i=${item.imdb_id}&apikey=4282aace`, {
-              method: 'GET'
-            })
-            let titleData = await res.json();
-            if(titleData.Poster === 'N/A') {
-              return;
-            }
-            setMovieTitles((prevData) => {
-              return [...prevData, titleData]
-            })
+      let url = 'https://api.watchmode.com/v1/list-titles/?apiKey=CD5UU4BDUoZl8jOFkq3QEQ2iWo6d1MYOrGSDqIQ8&types=movie'
+      let response = await fetch(url, {
+        method: 'GET'
+      })
+      let data = await response.json();
+      console.log(data);
+
+      function getMovieDetails (data) {
+        data.forEach(async (item) => {
+          let res = await fetch(`https://www.omdbapi.com/?i=${item.imdb_id}&apikey=4282aace`, {
+            method: 'GET'
           })
-        }
-        getMovieDetails(data.titles)
+          let titleData = await res.json();
+          if(titleData.Poster === 'N/A') {
+            return;
+          }
+          setMovieTitles((prevData) => {
+            return [...prevData, titleData]
+          })
+        })
+      }
+      getMovieDetails(data.titles)
     }
     useEffect(() => {
-        getMovies();
+      getMovies();
     }, []);
 
     
@@ -76,7 +74,7 @@ function Movie (props){
                       
                   </div>
               </div>
-            <MovieDetailModal key={index} title={item.Title} plot={item.Plot} rated={item.Rated} actors={item.Actors} />
+            <MovieDetailModal key={index} link={item.imdbID} title={item.Title} plot={item.Plot} rated={item.Rated} actors={item.Actors} />
             </div>
             </>
             )
