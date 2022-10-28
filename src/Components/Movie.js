@@ -1,7 +1,15 @@
 import React, {useState, useEffect} from "react";
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
+import MovieDetailModal from "./MovieDetailModal";
+
+
+
 function Movie (props){
     const [movieTitles, setMovieTitles] = useState([]);
     console.log(movieTitles);
+    
+
 
     let filteredMovies = movieTitles.filter(item => {
       if(props.searchInp === ""){
@@ -13,6 +21,7 @@ function Movie (props){
 
     let finalList = filteredMovies.length > 49 ? (props.showAll === false ? (props.showNext === false ? filteredMovies.slice(0, 49) : filteredMovies.slice(0,100)) : filteredMovies) : filteredMovies;
 
+    
 
     async function getMovies() {
 
@@ -22,9 +31,7 @@ function Movie (props){
         })
         let data = await response.json();
         console.log(data);
-    
-        
-    
+  
         function getMovieDetails (data) {
           data.forEach(async (item) => {
             let res = await fetch(`https://www.omdbapi.com/?i=${item.imdb_id}&apikey=4282aace`, {
@@ -45,22 +52,29 @@ function Movie (props){
         getMovies();
     }, []);
 
+    
+
 
     return (
         <>
         {finalList.map((item, index) => {
             return  (
-            <div key={index} className="card card-flex card-shadow m-1" style={{width: '15rem'}}>
-                <img src={item.Poster} className="card-img-top" alt="..." style={{height: '18rem'}}/>
-                <div className="card-body card-body-pos bg-dark">
-                    <div className="wrap-movie-info text-light">
-                        <h5 className="card-title">{item.Title}</h5>
-                        <p className="card-text">Directed by: {item.Director}</p>
-                        
-                    </div>
-                    <a href="/" className="btn btn-primary">Sneak peek</a>
-                </div>
+            <>
+            <div key={index} className="card bg-dark card-flex card-shadow m-1" style={{width: '15rem'}}>
+              <img src={item.Poster} className="card-img-top" alt="..." style={{height: '18rem'}}/>
+              <div className="card-body card-body-pos bg-dark">
+                  <div className="wrap-movie-info text-light">
+                      <h5 className="card-title">{item.Title}</h5>
+                      <p className="card-text">Directed by: {item.Director}</p>
+                      
+                  </div>
+              </div>
+            <MovieDetailModal title={item.Title} plot={item.Plot} rated={item.Rated} actors={item.Actors} />
+              
             </div>
+
+            
+            </>
             )
         })}
         <div className="w-100 d-flex justify-content-center">

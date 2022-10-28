@@ -35,11 +35,13 @@ body{
   margin: 0 auto;
 }
 
-
+.const-shadow{
+  box-shadow: 0 0 15px red;
+ 
+}
 
 .card-shadow:hover{
   box-shadow: 0 0 15px red;
-  cursor: pointer;
 }
 
 .card-body-pos{
