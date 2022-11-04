@@ -74,7 +74,7 @@ function Movie (props){
                       
                   </div>
               </div>
-            <MovieDetailModal key={index} link={item.imdbID} title={item.Title} plot={item.Plot} rated={item.Rated} actors={item.Actors} />
+              <MovieDetailModal key={index} link={item.imdbID} title={item.Title} plot={item.Plot} rated={item.Rated} actors={item.Actors} />
             </div>
             </>
             )

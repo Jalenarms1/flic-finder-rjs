@@ -36,7 +36,7 @@ export default function MovieModal(props) {
 
     return (
         <Modal className="fade" show={props.show} onHide={props.handleClose}>
-            <Modal.Header className="bg-dark" closeButton>
+            <Modal.Header className="bg-dark" closeButton closeVariant="white">
               <Modal.Title className="text-light">
                 Next Watch
               </Modal.Title>
