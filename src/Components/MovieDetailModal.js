@@ -16,7 +16,7 @@ export default function MovieDetailModal (props) {
         <>
         <Button className="bg-light text-dark" onClick={handleShowDetails}>See details...</Button>
         <Modal size="lg" centered show={showDetails} onHide={hideDetails}>
-            <Modal.Header className="bg-dark text-light" closeButton>
+            <Modal.Header className="bg-dark text-light" closeButton closeVariant="white">
                 <h1>{props.title}</h1>
             </Modal.Header>
             <Modal.Body className="bg-dark text-light">

@@ -4,12 +4,12 @@ import MovieDetailModal from "./MovieDetailModal";
 
 
 function Movie (props){
-    const [movieTitles, setMovieTitles] = useState([]);
-    console.log(movieTitles);
+    // const [movieTitles, setMovieTitles] = useState([]);
+    // console.log(movieTitles);
     
 
 
-    let filteredMovies = movieTitles.filter(item => {
+    let filteredMovies = props.movieTitles.filter(item => {
       if(props.genre !== 'none'){
         if(props.searchInp === "" && item.Genre.includes(props.genre)){
           return item
@@ -28,34 +28,34 @@ function Movie (props){
 
     let finalList = filteredMovies.length > 49 ? (props.showAll === false ? (props.showNext === false ? filteredMovies.slice(0, 49) : filteredMovies.slice(0,100)) : filteredMovies) : filteredMovies;
     
-    async function getMovies() {
+    // async function getMovies() {
 
-      let url = 'https://api.watchmode.com/v1/list-titles/?apiKey=CD5UU4BDUoZl8jOFkq3QEQ2iWo6d1MYOrGSDqIQ8&types=movie'
-      let response = await fetch(url, {
-        method: 'GET'
-      })
-      let data = await response.json();
-      console.log(data);
+    //   let url = 'https://api.watchmode.com/v1/list-titles/?apiKey=CD5UU4BDUoZl8jOFkq3QEQ2iWo6d1MYOrGSDqIQ8&types=movie'
+    //   let response = await fetch(url, {
+    //     method: 'GET'
+    //   })
+    //   let data = await response.json();
+    //   console.log(data);
 
-      function getMovieDetails (data) {
-        data.forEach(async (item) => {
-          let res = await fetch(`https://www.omdbapi.com/?i=${item.imdb_id}&apikey=4282aace`, {
-            method: 'GET'
-          })
-          let titleData = await res.json();
-          if(titleData.Poster === 'N/A') {
-            return;
-          }
-          setMovieTitles((prevData) => {
-            return [...prevData, titleData]
-          })
-        })
-      }
-      getMovieDetails(data.titles)
-    }
-    useEffect(() => {
-      getMovies();
-    }, []);
+    //   function getMovieDetails (data) {
+    //     data.forEach(async (item) => {
+    //       let res = await fetch(`https://www.omdbapi.com/?i=${item.imdb_id}&apikey=4282aace`, {
+    //         method: 'GET'
+    //       })
+    //       let titleData = await res.json();
+    //       if(titleData.Poster === 'N/A') {
+    //         return;
+    //       }
+    //       setMovieTitles((prevData) => {
+    //         return [...prevData, titleData]
+    //       })
+    //     })
+    //   }
+    //   getMovieDetails(data.titles)
+    // }
+    // useEffect(() => {
+    //   getMovies();
+    // }, []);
 
     
 
@@ -74,7 +74,7 @@ function Movie (props){
                       
                   </div>
               </div>
-            <MovieDetailModal key={index} link={item.imdbID} title={item.Title} plot={item.Plot} rated={item.Rated} actors={item.Actors} />
+              <MovieDetailModal key={index} link={item.imdbID} title={item.Title} plot={item.Plot} rated={item.Rated} actors={item.Actors} />
             </div>
             </>
             )
