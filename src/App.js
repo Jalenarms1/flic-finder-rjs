@@ -10,8 +10,8 @@ export default function App() {
         <React.StrictMode>
             <HashRouter>
                 <Routes>
-                    <Route path="/" element={<MainPage />} />
-                    <Route path="/saved-movies" element={<SavedMovies />} />
+                    <Route path="!#/" element={<MainPage />} />
+                    <Route path="!#/saved-movies" element={<SavedMovies />} />
                 </Routes>
             </HashRouter>
         </React.StrictMode>
