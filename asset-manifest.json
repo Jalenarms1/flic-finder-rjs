@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/flic-finder-rjs/static/css/main.91ea0458.css",
-    "main.js": "/flic-finder-rjs/static/js/main.c20f8221.js",
+    "main.js": "/flic-finder-rjs/static/js/main.e0edaaab.js",
     "static/js/787.4b31e3e5.chunk.js": "/flic-finder-rjs/static/js/787.4b31e3e5.chunk.js",
     "index.html": "/flic-finder-rjs/index.html",
     "main.91ea0458.css.map": "/flic-finder-rjs/static/css/main.91ea0458.css.map",
-    "main.c20f8221.js.map": "/flic-finder-rjs/static/js/main.c20f8221.js.map",
+    "main.e0edaaab.js.map": "/flic-finder-rjs/static/js/main.e0edaaab.js.map",
     "787.4b31e3e5.chunk.js.map": "/flic-finder-rjs/static/js/787.4b31e3e5.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.91ea0458.css",
-    "static/js/main.c20f8221.js"
+    "static/js/main.e0edaaab.js"
   ]
 }
