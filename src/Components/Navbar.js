@@ -1,50 +1,9 @@
 import React, { useState } from "react";
-import Movie from "./Movie";
 import Button from 'react-bootstrap/Button';
-import MovieModal from "./MovieModal";
+import {Link} from 'react-router-dom';
 
 export default function Navbar (props) {
-    // const [searchInp, setSearchInp] = useState('');
-    // const [showNext, setShowNext] = useState(false);
-    // const [showAll, setShowAll] = useState(false);
-    // const [show, setShow] = useState(false);
-    // const [genre, setGenre] = useState('none');
-    // console.log(genre);
-
-
-    // function handleShowMore(){
-    //   setShowNext(prevState => {
-    //     return !prevState
-    //   })
-    // }
-
-    // function handleShowAll(){
-    //   setShowAll(prevState => {
-    //     return !prevState
-    //   })
-    // }
-
-    // function handleShowLess() {
-    //   setShowNext(prevState => {
-    //     return !prevState
-    //   })
-
-    //   setShowAll(prevState => {
-    //     return !prevState
-    //   })
-    // }
-
-    // function handleShow() {
-    //   setShow(true)
-    // }
-
-    // function handleClose() {
-    //   setShow(false)
-    // }
-
-    // function handleGenreChange(e){
-    //   setGenre(e.target.value)
-    // }
+    
     
     return (
         <div className="wrap-content">
@@ -62,12 +21,12 @@ export default function Navbar (props) {
               </select> 
 
             </div>
-            <Button type="button" onClick={props.handleShow} className="btn-light rounded p-2">Test your luck</Button>
+            <div>
+              <Button type="button" className="btn-light rounded p-2 mx-2"><Link to="/saved-movies" style={{textDecoration: 'none', color: 'black'}}>Saved Movies</Link></Button>
+              <Button type="button" onClick={props.handleShow} className="btn-light rounded p-2">Test your luck</Button>
+
+            </div>
           </div>
-          {/* <div className='movie-container pb-3'>
-            <Movie genre={genre} handleShowMore={handleShowMore} handleShowAll={handleShowAll} handleShowLess={handleShowLess} searchInp={searchInp} showNext={showNext} showAll={showAll} />
-          </div> */}
-          {/* <MovieModal genre={genre} show={show} handleClose={handleClose} /> */}
           
         </div>
     )
