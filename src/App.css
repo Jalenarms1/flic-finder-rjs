@@ -41,7 +41,7 @@ body{
 }
 
 .card-shadow:hover{
-  box-shadow: 0 0 15px red;
+  box-shadow: 0 0 15px red
 }
 
 .card-body-pos{
