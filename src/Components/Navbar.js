@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import Button from 'react-bootstrap/Button';
-import {Link} from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 
 export default function Navbar (props) {
+  const location = useLocation();
 
-  console.log(props.location.pathname);
+  console.log(location.pathname);
+
     
     
   return (
