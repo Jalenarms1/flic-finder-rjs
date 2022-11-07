@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 
 export default function Navbar (props) {
 
-  console.log(window.location.pathname);
+  console.log(props.location.pathname);
     
     
   return (
