@@ -2,10 +2,15 @@ import React, {useState, useEffect} from "react";
 import MovieDetailModal from "./MovieDetailModal";
 
 
+const moviesFromStorage = JSON.parse(localStorage.getItem('likedMovies')) || [];
 
 function Movie (props){
     // const [movieTitles, setMovieTitles] = useState([]);
     // console.log(movieTitles);
+
+
+    const [likedMovies, setLikedMovies] = useState(moviesFromStorage); 
+    console.log(likedMovies);
     
 
 
@@ -27,56 +32,64 @@ function Movie (props){
     })
 
     let finalList = filteredMovies.length > 49 ? (props.showAll === false ? (props.showNext === false ? filteredMovies.slice(0, 49) : filteredMovies.slice(0,100)) : filteredMovies) : filteredMovies;
-    
-    // async function getMovies() {
 
-    //   let url = 'https://api.watchmode.com/v1/list-titles/?apiKey=CD5UU4BDUoZl8jOFkq3QEQ2iWo6d1MYOrGSDqIQ8&types=movie'
-    //   let response = await fetch(url, {
-    //     method: 'GET'
-    //   })
-    //   let data = await response.json();
-    //   console.log(data);
+    finalList.forEach(item => {
+      likedMovies.forEach(likedItem => {
+        if(item.imdbID === likedItem.imdbID){
+          item.isLiked = true;
+        }
+      })
+    })
+    console.log(finalList);
 
-    //   function getMovieDetails (data) {
-    //     data.forEach(async (item) => {
-    //       let res = await fetch(`https://www.omdbapi.com/?i=${item.imdb_id}&apikey=4282aace`, {
-    //         method: 'GET'
-    //       })
-    //       let titleData = await res.json();
-    //       if(titleData.Poster === 'N/A') {
-    //         return;
-    //       }
-    //       setMovieTitles((prevData) => {
-    //         return [...prevData, titleData]
-    //       })
-    //     })
-    //   }
-    //   getMovieDetails(data.titles)
-    // }
-    // useEffect(() => {
-    //   getMovies();
-    // }, []);
+    const handleLikedMovie = (e) => {
+      console.log(e.target.offsetParent.id);
+      
 
-    
+      props.movieTitles.forEach(item => {
+        if(item.imdbID === e.target.offsetParent.id){
+          let movieObj = {
+            title: item.Title,
+            poster: item.Poster,
+            director: item.Director,
+            plot: item.Plot,
+            actors: item.Actors,
+            rating: item.Rating,
+            imdbID: item.imdbID
+          }
+
+          setLikedMovies(prevData => {
+            return [...prevData, movieObj]
+          })
+        }
+      })
+      
+    }
+
+    useEffect(() => {
+      if(likedMovies.length > 0){
+        localStorage.setItem("likedMovies", JSON.stringify(likedMovies))
+        setLikedMovies(likedMovies)
+      }
+    }, [likedMovies])
 
 
     return (
         <>
         {finalList.map((item, index) => {
             return  (
-            <>
-            <div key={index} className="card bg-dark card-flex card-shadow m-1" style={{width: '15rem'}}>
-              <img src={item.Poster} className="card-img-top" alt="..." style={{height: '18rem'}}/>
-              <div className="card-body card-body-pos bg-dark">
-                  <div className="wrap-movie-info text-light">
-                      <h5 className="card-title">{item.Title}</h5>
-                      <p className="card-text">Directed by: {item.Director}</p>
-                      
-                  </div>
+              <div key={index} onClick={handleLikedMovie} id={item.imdbID} className="card bg-dark card-flex card-shadow m-1" style={{width: '15rem', boxShadow: item.isLiked ? "0 0 20px red" : ''}}>
+                <img src={item.Poster} className="card-img-top" alt="..." style={{height: '18rem'}}/>
+                <div className="card-body card-body-pos bg-dark">
+                    <div className="wrap-movie-info text-light">
+                        <h5 className="card-title">{item.Title}</h5>
+                        <p className="card-text">Directed by: {item.Director}</p>
+                        
+                    </div>
+                </div>
+                <MovieDetailModal key={index} link={item.imdbID} title={item.Title} plot={item.Plot} rated={item.Rated} actors={item.Actors} />
               </div>
-              <MovieDetailModal key={index} link={item.imdbID} title={item.Title} plot={item.Plot} rated={item.Rated} actors={item.Actors} />
-            </div>
-            </>
+            
             )
         })}
         <div className="w-100 d-flex justify-content-center">

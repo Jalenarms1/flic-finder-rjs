@@ -2,8 +2,8 @@ import './App.css';
 import Movie from './Components/Movie';
 import Navbar from './Components/Navbar';
 import MovieModal from './Components/MovieModal';
-import {useState, useEffect, useReducer} from 'react';
-import { propTypes } from 'react-bootstrap/esm/Image';
+import LikedMovies from './Components/LikedMovies';
+import {useState, useEffect} from 'react';
 
 function App() {
 
@@ -13,17 +13,6 @@ function App() {
   const [show, setShow] = useState(false);
   const [genre, setGenre] = useState('none');
   const [movieTitles, setMovieTitles] = useState([]);
-  const [randomMovie, setRandomMovie] = useState({});
-  console.log(randomMovie);
-
-  // const reducer = (state, action) => {
-  //   state = 
-  // }
-
-  // const [randomMovie, setRandomMovie] = useReducer(, {});
-
-  const loadNewRandom = () => {
-  }
 
 
   console.log(genre);
@@ -58,11 +47,7 @@ function App() {
     
   }, []);
 
-  useEffect(() => {
-    if(!props.show){
-      setRandomMovie(movieTitles[Math.floor(Math.random() * movieTitles.length)])
-    }
-  }, [show])
+  
 
 
   function handleShowMore(){
@@ -102,11 +87,12 @@ function App() {
   
   return (
     <div className='wrap-all'>
-      <Navbar handleGenreChange={handleGenreChange} handleClose={handleClose} handleShow={handleShow} showModal={show} setSearchInp={setSearchInp} loadNewRandom={loadNewRandom} />
+      <Navbar handleGenreChange={handleGenreChange} handleClose={handleClose} handleShow={handleShow} showModal={show} setSearchInp={setSearchInp} />
       <div className='movie-container pb-3'>
         <Movie movieTitles={movieTitles} genre={genre} handleShowMore={handleShowMore} handleShowAll={handleShowAll} handleShowLess={handleShowLess} searchInp={searchInp} showModal={show} showNext={showNext} showAll={showAll} />
+        {/* <LikedMovies /> */}
       </div>
-      <MovieModal genre={genre} show={show} randomMovie={randomMovie} handleClose={handleClose} />
+      <MovieModal genre={genre} movies={movieTitles} show={show} handleClose={handleClose} />
 
     </div>
   );
