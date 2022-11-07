@@ -7,13 +7,14 @@ import './App.css';
 export default function App() {
 
     return (
-        
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<MainPage />} />
-                <Route path="/saved-movies" element={<SavedMovies />} />
-            </Routes>
-        </BrowserRouter>
+        <React.StrictMode>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<MainPage />} />
+                    <Route path="/saved-movies" element={<SavedMovies />} />
+                </Routes>
+            </BrowserRouter>
+        </React.StrictMode>
 
         
     )
