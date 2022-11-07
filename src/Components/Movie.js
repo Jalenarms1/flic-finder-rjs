@@ -2,18 +2,12 @@ import React, {useState, useEffect} from "react";
 import MovieDetailModal from "./MovieDetailModal";
 
 
-const moviesFromStorage = JSON.parse(localStorage.getItem('likedMovies')) || [];
 
 function Movie (props){
     // const [movieTitles, setMovieTitles] = useState([]);
     // console.log(movieTitles);
 
-
-    const [likedMovies, setLikedMovies] = useState(moviesFromStorage); 
-    console.log(likedMovies);
     
-
-
     let filteredMovies = props.movieTitles.filter(item => {
       if(props.genre !== 'none'){
         if(props.searchInp === "" && item.Genre.includes(props.genre)){
@@ -34,7 +28,7 @@ function Movie (props){
     let finalList = filteredMovies.length > 49 ? (props.showAll === false ? (props.showNext === false ? filteredMovies.slice(0, 49) : filteredMovies.slice(0,100)) : filteredMovies) : filteredMovies;
 
     finalList.forEach(item => {
-      likedMovies.forEach(likedItem => {
+      props.likedMovies.forEach(likedItem => {
         if(item.imdbID === likedItem.imdbID){
           item.isLiked = true;
         }
@@ -42,43 +36,16 @@ function Movie (props){
     })
     console.log(finalList);
 
-    const handleLikedMovie = (e) => {
-      console.log(e.target.offsetParent.id);
-      
+    
 
-      props.movieTitles.forEach(item => {
-        if(item.imdbID === e.target.offsetParent.id){
-          let movieObj = {
-            title: item.Title,
-            poster: item.Poster,
-            director: item.Director,
-            plot: item.Plot,
-            actors: item.Actors,
-            rating: item.Rating,
-            imdbID: item.imdbID
-          }
-
-          setLikedMovies(prevData => {
-            return [...prevData, movieObj]
-          })
-        }
-      })
-      
-    }
-
-    useEffect(() => {
-      if(likedMovies.length > 0){
-        localStorage.setItem("likedMovies", JSON.stringify(likedMovies))
-        setLikedMovies(likedMovies)
-      }
-    }, [likedMovies])
+    
 
 
     return (
         <>
         {finalList.map((item, index) => {
             return  (
-              <div key={index} onClick={handleLikedMovie} id={item.imdbID} className="card bg-dark card-flex card-shadow m-1" style={{width: '15rem', border: item.isLiked ? "2px solid red" : ''}}>
+              <div key={index} onClick={props.handleLikedMovie} id={item.imdbID} className="card bg-dark card-flex card-shadow m-1" style={{width: '15rem', border: item.isLiked ? "2px solid red" : ''}}>
                 <img src={item.Poster} className="card-img-top" alt="..." style={{height: '18rem'}}/>
                 <div className="card-body card-body-pos bg-dark">
                     <div className="wrap-movie-info text-light">

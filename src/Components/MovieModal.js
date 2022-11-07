@@ -14,7 +14,7 @@ export default function MovieModal(props) {
     
 
     async function getRandomMovie() {
-        let url = 'https://api.watchmode.com/v1/list-titles/?apiKey=CD5UU4BDUoZl8jOFkq3QEQ2iWo6d1MYOrGSDqIQ8&types=movie'
+        let url = 'https://api.watchmode.com/v1/list-titles/?apiKey=xeo8DxXfZkd5yyDTji0rGODvMnP60fcoGyarLSHn&types=movie'
         let response = await fetch(url, {
           method: 'GET'
         })

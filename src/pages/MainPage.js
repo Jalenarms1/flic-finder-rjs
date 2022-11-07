@@ -2,10 +2,12 @@ import '../App.css';
 import Movie from '../Components/Movie';
 import Navbar from '../Components/Navbar';
 import MovieModal from '../Components/MovieModal';
-import LikedMovies from '../Components/LikedMovies';
 import {useState, useEffect} from 'react';
 
+
+
 function MainPage() {
+  const moviesFromStorage = JSON.parse(localStorage.getItem('likedMovies')) || [];
 
   const [searchInp, setSearchInp] = useState('');
   const [showNext, setShowNext] = useState(false);
@@ -13,13 +15,15 @@ function MainPage() {
   const [show, setShow] = useState(false);
   const [genre, setGenre] = useState('none');
   const [movieTitles, setMovieTitles] = useState([]);
+  const [likedMovies, setLikedMovies] = useState(moviesFromStorage); 
+
 
 
   console.log(genre);
 
   async function getMovies() {
 
-    let url = 'https://api.watchmode.com/v1/list-titles/?apiKey=CD5UU4BDUoZl8jOFkq3QEQ2iWo6d1MYOrGSDqIQ8&types=movie'
+    let url = 'https://api.watchmode.com/v1/list-titles/?apiKey=xeo8DxXfZkd5yyDTji0rGODvMnP60fcoGyarLSHn&types=movie'
     let response = await fetch(url, {
       method: 'GET'
     })
@@ -46,6 +50,44 @@ function MainPage() {
     getMovies();
     
   }, []);
+
+  useEffect(() => {
+    if(likedMovies.length > 0){
+      localStorage.setItem("likedMovies", JSON.stringify(likedMovies))
+      setLikedMovies(likedMovies)
+    }
+  }, [likedMovies])
+
+  useEffect(() => {
+    let items = JSON.parse(localStorage.getItem('likedMovies'));
+    if(items){
+      setLikedMovies(items)
+    }
+  }, [])
+
+  const handleLikedMovie = (e) => {
+    console.log(e.target.offsetParent.id);
+    
+
+    movieTitles.forEach(item => {
+      if(item.imdbID === e.target.offsetParent.id){
+        let movieObj = {
+          title: item.Title,
+          poster: item.Poster,
+          director: item.Director,
+          plot: item.Plot,
+          actors: item.Actors,
+          rating: item.Rating,
+          imdbID: item.imdbID
+        }
+
+        setLikedMovies(prevData => {
+          return [...prevData, movieObj]
+        })
+      }
+    })
+    
+  }
 
   
 
@@ -89,7 +131,7 @@ function MainPage() {
     <div className='wrap-all'>
       <Navbar handleGenreChange={handleGenreChange} handleClose={handleClose} handleShow={handleShow} showModal={show} setSearchInp={setSearchInp} />
       <div className='movie-container pb-3'>
-        <Movie movieTitles={movieTitles} genre={genre} handleShowMore={handleShowMore} handleShowAll={handleShowAll} handleShowLess={handleShowLess} searchInp={searchInp} showModal={show} showNext={showNext} showAll={showAll} />
+        <Movie likedMovies={likedMovies} handleLikedMovie={handleLikedMovie} movieTitles={movieTitles} genre={genre} handleShowMore={handleShowMore} handleShowAll={handleShowAll} handleShowLess={handleShowLess} searchInp={searchInp} showModal={show} showNext={showNext} showAll={showAll} />
         {/* <LikedMovies /> */}
       </div>
       <MovieModal genre={genre} movies={movieTitles} show={show} handleClose={handleClose} />
