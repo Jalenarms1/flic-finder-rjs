@@ -4,7 +4,6 @@ import MovieDetailModal from "./MovieDetailModal";
 
 function LikedMovies(props) {
     
-    
 
     return (
         <>

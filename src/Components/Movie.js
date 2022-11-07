@@ -78,7 +78,7 @@ function Movie (props){
         <>
         {finalList.map((item, index) => {
             return  (
-              <div key={index} onClick={handleLikedMovie} id={item.imdbID} className="card bg-dark card-flex card-shadow m-1" style={{width: '15rem', boxShadow: item.isLiked ? "0 0 20px red" : ''}}>
+              <div key={index} onClick={handleLikedMovie} id={item.imdbID} className="card bg-dark card-flex card-shadow m-1" style={{width: '15rem', border: item.isLiked ? "2px solid red" : ''}}>
                 <img src={item.Poster} className="card-img-top" alt="..." style={{height: '18rem'}}/>
                 <div className="card-body card-body-pos bg-dark">
                     <div className="wrap-movie-info text-light">
