@@ -66,8 +66,6 @@ function MainPage() {
   }, [])
 
   const handleLikedMovie = (e) => {
-    console.log(e.target.offsetParent.id);
-    
 
     movieTitles.forEach(item => {
       if(item.imdbID === e.target.offsetParent.id){
@@ -92,8 +90,8 @@ function MainPage() {
 
   // unlike movie
   const handleUnlikedMovie = (e) => {
-    console.log(e);
-    e.target.offsetParent.style.border = 'none'
+    console.log(e.target.offsetParent.children[1].children[0]);
+    e.target.offsetParent.children[1].children[0].style.display = 'none'
     likedMovies.forEach(liked => {
       if(liked.imdbID === e.target.offsetParent.id){
         let newLikedList = likedMovies.filter(item => {

@@ -49,7 +49,15 @@ body{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  position: relative;
 }
+
+.like-btn{
+  position: absolute;
+  top: -25px;
+  right: -10px;
+}
+
 .wrap-movie-info{
   margin-bottom: 2%;
 }

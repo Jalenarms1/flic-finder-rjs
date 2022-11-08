@@ -1,12 +1,10 @@
-import React, {useState, useEffect} from "react";
+import React from "react";
 import MovieDetailModal from "./MovieDetailModal";
-import loader from "../loaderGifGrayBg.gif";
+import loader from "../images/loaderGifGrayBg.gif";
+import heartBtn from "../images/heartBtn.png";
 
 
 function Movie (props){
-    // const [movieTitles, setMovieTitles] = useState([]);
-    // console.log(movieTitles);
-
     
     let filteredMovies = props.movieTitles.filter(item => {
       if(props.genre !== 'none'){
@@ -52,14 +50,16 @@ function Movie (props){
         <>
         {finalList.length > 0 ? finalList.map((item, index) => {
             return  (
-              <div key={index} onClick={item.isLiked ? props.handleUnlikedMovie : props.handleLikedMovie} id={item.imdbID} className="card bg-dark card-flex card-shadow m-1" style={{width: '15rem', border: item.isLiked ? "2px solid red" : ''}}>
+              <div key={index} onClick={item.isLiked ? props.handleUnlikedMovie : props.handleLikedMovie} id={item.imdbID} className="card bg-dark card-flex card-shadow m-1" style={{width: '15rem'}}>
                 <img src={item.Poster} className="card-img-top" alt="..." style={{height: '18rem'}}/>
                 <div className="card-body card-body-pos bg-dark">
-                    <div className="wrap-movie-info text-light">
-                        <h5 className="card-title">{item.Title}</h5>
-                        <p className="card-text">Directed by: {item.Director}</p>
-                        
-                    </div>
+                  {item.isLiked && <img src={heartBtn} alt="not-liked" style={{width: '4rem'}} className="like-btn" />}
+
+                  <div className="wrap-movie-info text-light">
+                      <h5 className="card-title">{item.Title}</h5>
+                      <p className="card-text">Directed by: {item.Director}</p>
+                      
+                  </div>
                 </div>
                 <MovieDetailModal key={index} link={item.imdbID} title={item.Title} plot={item.Plot} rated={item.Rated} actors={item.Actors} />
               </div>
