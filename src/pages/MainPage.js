@@ -39,6 +39,7 @@ function MainPage() {
         if(titleData.Poster === 'N/A') {
           return;
         }
+        titleData.isLiked = false
         setMovieTitles((prevData) => {
           return [...prevData, titleData]
         })
@@ -56,6 +57,7 @@ function MainPage() {
       localStorage.setItem("likedMovies", JSON.stringify(likedMovies))
       setLikedMovies(likedMovies)
     }
+
   }, [likedMovies])
 
   useEffect(() => {
@@ -66,7 +68,12 @@ function MainPage() {
   }, [])
 
   const handleLikedMovie = (e) => {
-
+    likedMovies.forEach(item => {
+      if(item.imdbID === e.target.offsetParent.id){
+        return;
+      }
+    })
+    
     movieTitles.forEach(item => {
       if(item.imdbID === e.target.offsetParent.id){
         let movieObj = {
@@ -90,18 +97,34 @@ function MainPage() {
 
   // unlike movie
   const handleUnlikedMovie = (e) => {
-    console.log(e.target.offsetParent.children[1].children[0]);
-    e.target.offsetParent.children[1].children[0].style.display = 'none'
+    console.log('unliked func');
+    movieTitles.forEach(title => {
+      if(title.imdbID === e.target.offsetParent.id){
+        title.isLiked = false
+      }
+    })
+
+    // will make sure last movie getting removed is updated within local storage
+    if(likedMovies.length === 1){
+      localStorage.setItem('likedMovies', JSON.stringify([]));
+      setLikedMovies([])
+      return;
+    }
+
     likedMovies.forEach(liked => {
       if(liked.imdbID === e.target.offsetParent.id){
+        console.log("match", e.target.offsetParent.id);
         let newLikedList = likedMovies.filter(item => {
           return item.imdbID !== e.target.offsetParent.id
         })
+        console.log(newLikedList);
         
 
         setLikedMovies(newLikedList)
-      }
+      } 
     })
+
+    
   }
 
   
