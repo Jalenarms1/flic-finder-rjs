@@ -7,14 +7,12 @@ import './App.css';
 export default function App() {
 
     return (
-        <React.StrictMode>
-            <HashRouter>
-                <Routes>
-                    <Route path="/" element={<MainPage />} />
-                    <Route path="/saved-movies" element={<SavedMovies />} />
-                </Routes>
-            </HashRouter>
-        </React.StrictMode>
+        <HashRouter>
+            <Routes>
+                <Route path="/" element={<MainPage />} />
+                <Route path="/saved-movies" element={<SavedMovies />} />
+            </Routes>
+        </HashRouter>
 
         
     )
