@@ -34,7 +34,14 @@ function Movie (props){
         }
       })
     })
-    console.log(finalList);
+
+    // props.likedMovies.forEach(item => {
+    //   finalList.forEach(title => {
+    //     if(item.imdbID !== title.imdbID){
+    //       item.isLiked = false;
+    //     }
+    //   })
+    // })
 
     
 
@@ -45,7 +52,7 @@ function Movie (props){
         <>
         {finalList.map((item, index) => {
             return  (
-              <div key={index} onClick={props.handleLikedMovie} id={item.imdbID} className="card bg-dark card-flex card-shadow m-1" style={{width: '15rem', border: item.isLiked ? "2px solid red" : ''}}>
+              <div key={index} onClick={item.isLiked ? props.handleUnlikedMovie : props.handleLikedMovie} id={item.imdbID} className="card bg-dark card-flex card-shadow m-1" style={{width: '15rem', border: item.isLiked ? "2px solid red" : ''}}>
                 <img src={item.Poster} className="card-img-top" alt="..." style={{height: '18rem'}}/>
                 <div className="card-body card-body-pos bg-dark">
                     <div className="wrap-movie-info text-light">

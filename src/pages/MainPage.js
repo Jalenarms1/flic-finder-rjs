@@ -78,7 +78,8 @@ function MainPage() {
           plot: item.Plot,
           actors: item.Actors,
           rating: item.Rating,
-          imdbID: item.imdbID
+          imdbID: item.imdbID,
+          isLiked: true
         }
 
         setLikedMovies(prevData => {
@@ -87,6 +88,22 @@ function MainPage() {
       }
     })
     
+  }
+
+  // unlike movie
+  const handleUnlikedMovie = (e) => {
+    console.log(e);
+    e.target.offsetParent.style.border = 'none'
+    likedMovies.forEach(liked => {
+      if(liked.imdbID === e.target.offsetParent.id){
+        let newLikedList = likedMovies.filter(item => {
+          return item.imdbID !== e.target.offsetParent.id
+        })
+        
+
+        setLikedMovies(newLikedList)
+      }
+    })
   }
 
   
@@ -131,8 +148,7 @@ function MainPage() {
     <div className='wrap-all'>
       <Navbar handleGenreChange={handleGenreChange} handleClose={handleClose} handleShow={handleShow} showModal={show} setSearchInp={setSearchInp} />
       <div className='movie-container pb-3'>
-        <Movie likedMovies={likedMovies} handleLikedMovie={handleLikedMovie} movieTitles={movieTitles} genre={genre} handleShowMore={handleShowMore} handleShowAll={handleShowAll} handleShowLess={handleShowLess} searchInp={searchInp} showModal={show} showNext={showNext} showAll={showAll} />
-        {/* <LikedMovies /> */}
+        <Movie likedMovies={likedMovies} handleLikedMovie={handleLikedMovie} handleUnlikedMovie={handleUnlikedMovie} movieTitles={movieTitles} genre={genre} handleShowMore={handleShowMore} handleShowAll={handleShowAll} handleShowLess={handleShowLess} searchInp={searchInp} showModal={show} showNext={showNext} showAll={showAll} />
       </div>
       <MovieModal genre={genre} movies={movieTitles} show={show} handleClose={handleClose} />
 
