@@ -5,13 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 
 export default function MovieModal(props) {
     const [randomMovie, setRandomMovie] = useState({});
-    
-    // console.log(props.movies[Math.floor(Math.random() * props.movies.length)]);
-    let randomTitle;
-
-    // randomTitle = props.movies[Math.floor(Math.random() * props.movies.length)];
-
-    
+        
 
     async function getRandomMovie() {
         let url = 'https://api.watchmode.com/v1/list-titles/?apiKey=xeo8DxXfZkd5yyDTji0rGODvMnP60fcoGyarLSHn&types=movie'

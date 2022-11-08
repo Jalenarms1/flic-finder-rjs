@@ -51,13 +51,13 @@ function Movie (props){
         {finalList.length > 0 ? finalList.map((item, index) => {
             return  (
               <div key={index} onClick={item.isLiked ? props.handleUnlikedMovie : props.handleLikedMovie} id={item.imdbID} className="card bg-dark card-flex card-shadow m-1" style={{width: '15rem'}}>
-                <img src={item.Poster} className="card-img-top" alt="..." style={{height: '18rem'}}/>
+                <img src={item.Poster} className="card-img-top card-img-hover" alt="..." style={{height: '18rem'}}/>
                 <div className="card-body card-body-pos bg-dark">
                   {item.isLiked && <img src={heartBtn} alt="not-liked" style={{width: '4rem'}} className="like-btn" />}
 
                   <div className="wrap-movie-info text-light">
-                      <h5 className="card-title">{item.Title}</h5>
-                      <p className="card-text">Directed by: {item.Director}</p>
+                    <h5 className="card-title">{item.Title}</h5>
+                    <p className="card-text">Directed by: {item.Director}</p>
                       
                   </div>
                 </div>
