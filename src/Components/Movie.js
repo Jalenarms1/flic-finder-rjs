@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import MovieDetailModal from "./MovieDetailModal";
-
+import loader from "../loaderGifGrayBg.gif";
 
 
 function Movie (props){
@@ -50,7 +50,7 @@ function Movie (props){
 
     return (
         <>
-        {finalList.map((item, index) => {
+        {finalList.length > 0 ? finalList.map((item, index) => {
             return  (
               <div key={index} onClick={item.isLiked ? props.handleUnlikedMovie : props.handleLikedMovie} id={item.imdbID} className="card bg-dark card-flex card-shadow m-1" style={{width: '15rem', border: item.isLiked ? "2px solid red" : ''}}>
                 <img src={item.Poster} className="card-img-top" alt="..." style={{height: '18rem'}}/>
@@ -64,8 +64,10 @@ function Movie (props){
                 <MovieDetailModal key={index} link={item.imdbID} title={item.Title} plot={item.Plot} rated={item.Rated} actors={item.Actors} />
               </div>
             
-            )
-        })}
+            ) 
+          
+            
+        }) : <img src={loader} alt="loading" />} 
         <div className="w-100 d-flex justify-content-center">
           {finalList.length > 23 && <button className="btn btn-outline-light rounded px-3 my-3" onClick={props.showAll === false ? (props.showNext === false ? props.handleShowMore : props.handleShowAll) : props.handleShowLess}>{props.showAll === false ? (props.showNext === false ? 'View more...' : 'View all') : 'View less'}</button>}
         </div>
