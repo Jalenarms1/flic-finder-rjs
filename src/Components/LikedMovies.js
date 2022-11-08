@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import MovieDetailModal from "./MovieDetailModal";
+import heartBtn from "../images/heartBtn.png";
 
 
 function LikedMovies(props) {
@@ -12,6 +13,8 @@ function LikedMovies(props) {
               <div key={index} id={item.imdbID} className="card bg-dark card-flex card-shadow m-1" style={{width: '15rem', boxShadow: '0 0 15px red'}}>
                 <img src={item.poster} className="card-img-top" alt="..." style={{height: '18rem'}}/>
                 <div className="card-body card-body-pos bg-dark">
+                    {item.isLiked && <img src={heartBtn} alt="not-liked" style={{width: '4rem'}} className="like-btn" />}
+
                     <div className="wrap-movie-info text-light">
                         <h5 className="card-title">{item.titles}</h5>
                         <p className="card-text">Directed by: {item.director}</p>
