@@ -8,18 +8,22 @@ const alreadyLiked = JSON.parse(localStorage.getItem('likedMovies')) || [];
 
 export default function SavedMovies () {
 
-    const [likedMovies, setMovies] = useState(alreadyLiked);
+    const [likedMovies, setLikedMovies] = useState(alreadyLiked);
     console.log(likedMovies);
 
     useEffect(() => {
-        setMovies(JSON.parse(localStorage.getItem('likedMovies')))
+        setLikedMovies(JSON.parse(localStorage.getItem('likedMovies')))
     }, [])
+
+    useEffect(() => {
+        localStorage.setItem('likedMovies', JSON.stringify(likedMovies));
+    }, [likedMovies])
 
     return (
         <>
             <Navbar />
             <div className="movie-container pb-2">
-                <LikedMovies likedMovies={likedMovies} />
+                <LikedMovies likedMovies={likedMovies} setLikedMovies={setLikedMovies} />
             </div>
         </>
     )
