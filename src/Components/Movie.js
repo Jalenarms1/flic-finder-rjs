@@ -50,8 +50,8 @@ function Movie (props){
         <>
         {finalList.length > 0 ? finalList.map((item, index) => {
             return  (
-              <div key={index} onClick={item.isLiked ? props.handleUnlikedMovie : props.handleLikedMovie} id={item.imdbID} className="card bg-dark card-flex card-shadow m-1" style={{width: '15rem'}}>
-                <img src={item.Poster} className="card-img-top card-img-hover" alt="..." style={{height: '18rem'}}/>
+              <div key={index}  id={item.imdbID} className="card bg-dark card-flex card-shadow m-1" style={{width: '15rem'}}>
+                <img src={item.Poster} onClick={item.isLiked ? props.handleUnlikedMovie : props.handleLikedMovie} className="card-img-top card-img-hover" alt="..." style={{height: '18rem'}}/>
                 <div className="card-body card-body-pos bg-dark">
                   {item.isLiked && <img src={heartBtn} alt="not-liked" style={{width: '4rem'}} className="like-btn" />}
 
@@ -67,7 +67,7 @@ function Movie (props){
             ) 
           
             
-        }) : <img src={loader} alt="loading" />} 
+        }) : <img src={loader} alt="loading" className="pt-4" />} 
         <div className="w-100 d-flex justify-content-center">
           {finalList.length > 23 && <button className="btn btn-outline-light rounded px-3 my-3" onClick={props.showAll === false ? (props.showNext === false ? props.handleShowMore : props.handleShowAll) : props.handleShowLess}>{props.showAll === false ? (props.showNext === false ? 'View more...' : 'View all') : 'View less'}</button>}
         </div>
