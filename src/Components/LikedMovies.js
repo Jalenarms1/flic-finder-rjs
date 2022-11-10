@@ -1,22 +1,66 @@
 import React, { useEffect, useState } from "react";
 import MovieDetailModal from "./MovieDetailModal";
-import heartBtn from "../images/heartBtn.png";
+import removeBtn from "../images/removeBtn.png";
 
 
 function LikedMovies(props) {
+
+    const removeLiked = (e) => {
+        console.log(e);
+        // will make sure last movie getting removed is updated within local storage
+        if(props.likedMovies.length === 1){
+            localStorage.setItem('likedMovies', JSON.stringify([]));
+            props.setLikedMovies([])
+            return;
+        }
+
+        if(e.target.id === "removeBtn"){
+            e.target.parentElement.parentElement.style.display = 'none';
+            props.likedMovies.forEach(liked => {
+                if(liked.imdbID === e.target.parentElement.parentElement.id){
+                console.log("match", e.target.parentElement.parentElement.id);
+                let newLikedList = props.likedMovies.filter(item => {
+                    return item.imdbID !== e.target.parentElement.parentElement.id
+                })
+                    console.log(newLikedList);
+                    
+            
+                    props.setLikedMovies(newLikedList)
+                } 
+            })
+
+        }else{
+            props.likedMovies.forEach(liked => {
+                if(liked.imdbID === e.target.parentElement.id){
+                console.log("match", e.target.parentElement.id);
+                let newLikedList = props.likedMovies.filter(item => {
+                    return item.imdbID !== e.target.parentElement.id
+                })
+                console.log(newLikedList);
+                
+        
+                props.setLikedMovies(newLikedList)
+                } 
+            })
+
+            e.target.offsetParent.style.display = 'none';
+
+        }
+       
+    }
     
 
     return (
         <>
         {props.likedMovies && props.likedMovies.map((item, index) => {
             return  (
-              <div key={index} id={item.imdbID} className="card bg-dark card-flex card-shadow m-1" style={{width: '15rem', boxShadow: '0 0 15px red'}}>
-                <img src={item.poster} className="card-img-top" alt="..." style={{height: '18rem'}}/>
+              <div key={index} id={item.imdbID} onClick={removeLiked} className="card bg-dark card-flex card-shadow m-1" style={{width: '15rem'}}>
+                <img src={item.poster} className="card-img-top card-img-hover" alt="..." style={{height: '18rem'}}/>
                 <div className="card-body card-body-pos bg-dark">
-                    {item.isLiked && <img src={heartBtn} alt="not-liked" style={{width: '4rem'}} className="like-btn" />}
+                    {item.isLiked && <img src={removeBtn} id="removeBtn" onClick={removeLiked} alt="not-liked" style={{width: '4rem', cursor: 'pointer'}} className="like-btn" />}
 
                     <div className="wrap-movie-info text-light">
-                        <h5 className="card-title">{item.titles}</h5>
+                        <h5 className="card-title">{item.title}</h5>
                         <p className="card-text">Directed by: {item.director}</p>
                         
                     </div>
