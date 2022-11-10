@@ -11,10 +11,26 @@ body{
   padding: 10px;
 }
 
+.visit-saved {
+  margin-left: 2%;
+  margin-right: 2%;
+}
+
+
+.card-flex{
+  width: 15rem;
+}
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+.wrap-right-nav{
+  display: flex;
+  justify-content: flex-end;
+  width: 35%;
+  
 }
 
 .card-img{
@@ -64,6 +80,28 @@ body{
 
 .wrap-movie-info{
   margin-bottom: 2%;
+}
+
+@media screen and (max-width: 750px) {
+  .wrap-right-nav{
+    order: 1;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 3%;
+    
+  }
+  .visit-saved{
+    margin-left: 0;
+  }
+  
+  .wrap-left{
+    order: 2;
+  }
+
+  .card-flex{
+    width: 20rem;
+  }
 }
 
 

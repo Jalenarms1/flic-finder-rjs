@@ -29,8 +29,8 @@ export default function Navbar (props) {
               <Button type="button" className="btn-light rounded p-2 px-3 mx-2"><Link to="/" style={{textDecoration: 'none', color: 'black'}}>Home</Link></Button>
 
             </div>}
-          {location.pathname !== '/saved-movies' && <div>
-            <Button type="button" className="btn-light rounded p-2 mx-2"><Link to="/saved-movies" style={{textDecoration: 'none', color: 'black'}}>Saved Movies</Link></Button>
+          {location.pathname !== '/saved-movies' && <div className="wrap-right-nav">
+            <Button type="button" className="btn-light rounded p-2 visit-saved"><Link to="/saved-movies" style={{textDecoration: 'none', color: 'black'}}>Saved Movies</Link></Button>
             <Button type="button" onClick={props.handleShow} className="btn-light rounded p-2">Test your luck</Button>
 
           </div>}
