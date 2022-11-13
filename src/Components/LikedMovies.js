@@ -15,35 +15,23 @@ function LikedMovies(props) {
         }
 
         if(e.target.id === "removeBtn"){
-            e.target.parentElement.parentElement.style.display = 'none';
+            console.log("hit");
             props.likedMovies.forEach(liked => {
                 if(liked.imdbID === e.target.parentElement.parentElement.id){
-                console.log("match", e.target.parentElement.parentElement.id);
-                let newLikedList = props.likedMovies.filter(item => {
-                    return item.imdbID !== e.target.parentElement.parentElement.id
-                })
-                    console.log(newLikedList);
-                    
-            
-                    props.setLikedMovies(newLikedList)
+                    props.setLikedMovies(props.likedMovies.filter(item => {
+                        return item.imdbID !== e.target.parentElement.parentElement.id
+                    }))
                 } 
             })
 
         }else{
             props.likedMovies.forEach(liked => {
                 if(liked.imdbID === e.target.parentElement.id){
-                console.log("match", e.target.parentElement.id);
-                let newLikedList = props.likedMovies.filter(item => {
-                    return item.imdbID !== e.target.parentElement.id
-                })
-                console.log(newLikedList);
-                
-        
-                props.setLikedMovies(newLikedList)
+                    props.setLikedMovies(props.likedMovies.filter(item => {
+                        return item.imdbID !== e.target.parentElement.id
+                    }))
                 } 
             })
-
-            e.target.offsetParent.style.display = 'none';
 
         }
        
