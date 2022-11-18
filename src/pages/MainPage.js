@@ -82,7 +82,7 @@ function MainPage() {
           director: item.Director,
           plot: item.Plot,
           actors: item.Actors,
-          rating: item.Rating,
+          rating: item.Rated,
           imdbID: item.imdbID,
           isLiked: true
         }
